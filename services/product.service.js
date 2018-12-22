@@ -1,26 +1,32 @@
-const productMocks = require('../utils/mocks/products');
+const BaseDao = require('../dao/base.dao');
 
 class ProductService {
-  constructor() {}
-
-  static getProducts({ tags }) {
-    return productMocks;
+  constructor() {
+    this.collection = 'products';
+    this.dao = new BaseDao();
   }
 
-  static getProduct({ productId }) {
-    return productMocks[0];
+  async getProducts({ tags }) {
+    const query = tags && { tags: { $in: tags } };
+    const products = await this.dao.getAll(this.collection, query);
+    return products || [];
   }
 
-  static createProduct({ product }) {
-    return productMocks[0];
+  async getProduct({ productId }) {
+    const product = await this.dao.get(this.collection, productId);
+    return product || {};
   }
 
-  static updateProduct({ productId, product }) {
-    return productMocks[0];
+  async createProduct({ product }) {
+    return await this.dao.create(this.collection, product);
   }
 
-  static deleteProduct({ productId }) {
-    return productMocks[0];
+  async updateProduct({ productId, product }) {
+    return await this.dao.update(this.collection, productId, product);
+  }
+
+  async deleteProduct({ productId }) {
+    return await this.dao.delete(this.collection, productId);
   }
 }
 

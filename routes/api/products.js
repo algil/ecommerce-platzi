@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const ProductService = require('../../services/product.service');
 
+const productService = new ProductService();
+
 router.get('/', async (req, res) => {
   const { tags } = req.query;
-  const products = await ProductService.getProducts({ tags });
+  const products = await productService.getProducts({ tags });
 
   res.send({
     data: products,
@@ -14,7 +16,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:productId', async (req, res) => {
   const { productId } = req.params;
-  const product = await ProductService.getProduct({ productId });
+  const product = await productService.getProduct({ productId });
 
   res.send({
     data: product,
@@ -24,7 +26,7 @@ router.get('/:productId', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const { body: product } = req;
-  const createdProduct = await ProductService.createProduct({ product });
+  const createdProduct = await productService.createProduct({ product });
 
   res.status(201).send({
     data: createdProduct,
@@ -35,7 +37,7 @@ router.post('/', async (req, res) => {
 router.put('/:productId', async (req, res) => {
   const { productId } = req.params;
   const { body: product } = req;
-  const updatedProduct = await ProductService.updateProduct({
+  const updatedProduct = await productService.updateProduct({
     productId,
     product
   });
@@ -48,7 +50,7 @@ router.put('/:productId', async (req, res) => {
 
 router.delete('/:productId', async (req, res) => {
   const { productId } = req.params;
-  const product = await ProductService.deleteProduct({ productId });
+  const product = await productService.deleteProduct({ productId });
 
   res.send({
     data: product,

@@ -14,6 +14,10 @@ app.set('view engine', 'pug');
 app.use('/products', productsRouter);
 app.use('/api/products', productsApiRouter);
 
+app.get('/', (req, res) => {
+  res.redirect('/products');
+});
+
 const server = app.listen(8000, function() {
   console.log(`Listening http://localhost:${server.address().port}`);
 });
