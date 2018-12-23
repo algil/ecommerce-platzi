@@ -6,7 +6,6 @@ const productService = new ProductService();
 
 router.get('/', async (req, res, next) => {
   try {
-    throw new Error('this is an error from getProducts');
     const { tags } = req.query;
     const products = await productService.getProducts({ tags });
     res.send({
