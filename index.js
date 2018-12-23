@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const productsRouter = require('./routes/views/products');
-const productsApiRouter = require('./routes/api/products');
+const productsRouter = require('./routes/views/products.view.routes');
+const productsApiRouter = require('./routes/api/products.api.routes');
 const {
   logErrors,
   clientErrorHandler,
